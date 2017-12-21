@@ -1,0 +1,9 @@
+
+
+*.log
+*.sqlite
+
+node_modules
+
+.history
+db
