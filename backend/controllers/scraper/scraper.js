@@ -46,8 +46,8 @@ exports = module.exports = {
    *
    * @returns
    */
-  runScraper: function (sourceItems, NewsModel) {
-
+  runScraper: function (sourceItems, NewsModel, cb) {
+    const sources = sourceItems.map((d) => d.url).join('\n') || 'None';
     sourceItems.forEach((source) => {
 
       scrapeData(source)
@@ -55,5 +55,7 @@ exports = module.exports = {
         .catch(err => null)
 
     })
+
+    cb(null, `scraped news headlines from : ${sources}`);
   }
 }

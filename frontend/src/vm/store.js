@@ -26,6 +26,12 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    fetchLatestNews ( { commit } ) {
+      axios.get('/api/scraper/run')
+          .then((resp) => {
+            setTimeout(() => this.dispatch('fetchNews'), 500)
+          }, (err) => {})
+    },
     fetchNews({ commit }, filters) {
       let url = '/api/news'
       if (filters){
@@ -33,21 +39,16 @@ const store = new Vuex.Store({
       }
       axios.get(url)
           .then((resp) => {
-            if (resp.status == 200) {
-
               commit('setFeeds', resp.data || [])
               commit('lastUpdate')
-            }
+
           }, (err) => {})
     },
     fetchSources({ commit }) {
 
 
       axios.get('/api/sources').then((resp) => {
-        // console.info('resp', resp)
-        if (resp.status == 200) {
-          commit('setFeedSources', resp.data || [])
-        }
+        commit('setFeedSources', resp.data || [])
       }, (err) => {
 
       })

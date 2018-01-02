@@ -56,7 +56,7 @@ export default {
       // console.info('click category', params, choices)
     },
     refreshNews (){
-      this.$store.dispatch('fetchNews')
+      this.$store.dispatch('fetchLatestNews')
     }
 
   },

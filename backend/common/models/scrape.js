@@ -9,12 +9,7 @@ module.exports = function(Scrape) {
     const NewsModel = app.models.news;
 
     const scrape = (err, sourceItems) => {
-      const sources = sourceItems.map((d) => d.url).join('\n') || 'None';
-      console.info(err, sourceItems,arguments)
-      scraper.runScraper(sourceItems, NewsModel);
-
-      cb(null, `scraping news headlines from : ${sources}`);
-
+      scraper.runScraper(sourceItems, NewsModel, cb);
     };
 
     if (sourceUrls && sourceUrls.length > 0) {
