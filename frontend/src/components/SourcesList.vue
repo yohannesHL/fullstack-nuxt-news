@@ -1,34 +1,29 @@
 <template>
   <v-container fluid style="min-height: 0;" grid-list-lg >
     <v-layout row >
-      <v-flex xs12 sm8 offset-sm2>
+      <v-flex xs12 sm10 offset-sm1>
         <v-toolbar >
-          <v-btn to="/" primary>Back</v-btn>
-        <v-btn
-          @click.native="dialog = true"
-          absolute
-          dark
-          fab
-          right
-          color="pink"
-        >
+          <v-btn @click="saveConfig" primary>Back</v-btn>
+          <v-btn
+            @click.native="dialog = true"
+            absolute
+            dark
+            right
+            color="orange"
+          >
           <v-icon>add</v-icon>
         </v-btn>
         </v-toolbar>
         <v-card>
+          <v-subheader v-text="'Filter'"></v-subheader>
+          <v-list two-line>
+            <v-layout child-flex>
 
-          <v-list>
             <template v-for="item in items">
-              <div :key="item.name">
-                <hr class="divider"/>
-                <a class="list__tile list__tile--link" href="#">
-                  <li>
-                    <div class="list__tile__title" v-html="item.url"></div>
-                    <span class="name" v-html="item.name"></span>
-                  </li>
-                </a>
-              </div>
+              <sources-list-item v-bind:key="item.name" :item="item">
+              </sources-list-item>
             </template>
+            </v-layout>
           </v-list>
 
         </v-card>
@@ -41,34 +36,32 @@
           scrollable
         >
           <v-card>
-            <v-card-title>Add News source</v-card-title>
+            <v-card-title>Request a News Source</v-card-title>
             <v-card-text>
             <add-source-form ref="addSourceForm"></add-source-form>
             </v-card-text>
               <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-              <v-btn color="blue darken-1" flat @click.native="submitForm">Save</v-btn>
+              <v-btn color="blue darken-1" flat @click.native="submitForm">Submit</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
 
-
       </v-flex>
-
     </v-layout>
-
-
   </v-container>
 </template>
 
 <script>
 import AddSourceForm from "./AddSourceForm";
+import SourcesListItem from "./SourcesListItem";
 
 export default {
   name: "SourcesList",
   components:{
-    AddSourceForm
+    AddSourceForm,
+    SourcesListItem
   },
   data(){
     return {
@@ -82,9 +75,15 @@ export default {
     }
   },
   methods: {
-    viewItem(e){
+    saveConfig(e){
+      const config = {}
 
+      this.items.forEach((item)=>{
+        config[item.name] = { ...item }
+      })
 
+      this.$store.dispatch('setSourcesConfig', config)
+      this.$router.back()
     },
     submitForm(e){
       if ( this.$refs.addSourceForm.$refs.form.validate() ){

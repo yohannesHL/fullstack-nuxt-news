@@ -2,10 +2,8 @@
   <div id="app">
     <v-app>
       <v-toolbar dark color="primary">
-          <v-toolbar-side-icon></v-toolbar-side-icon>
           <v-toolbar-title>My News Feed</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn to="/sources" @change="onClickConfigure">Configure</v-btn>
       </v-toolbar>
       <v-content>
           <router-view></router-view>
@@ -16,15 +14,7 @@
 
 <script>
 export default {
-  name: 'app',
-  methods:{
-    onClickConfigure(){
-
-    }
-  },
-  components:{
-
-  }
+  name: 'app'
 }
 </script>
 

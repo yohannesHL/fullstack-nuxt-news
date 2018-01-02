@@ -46,5 +46,9 @@
   "scrape": {
     "dataSource": null,
     "public": true
+  },
+  "requests": {
+    "dataSource": "db",
+    "public": true
   }
 }

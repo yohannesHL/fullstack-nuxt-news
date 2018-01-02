@@ -4,11 +4,13 @@
       label="Name"
       v-model="formData.name"
       :rules="nameRules"
+      placeholder="ycombinator"
       :counter="25"
       required
     ></v-text-field>
     <v-text-field
       label="Url"
+      placeholder="https://news.ycombinator.com"
       v-model="formData.url"
       :rules="urlRules"
       required
@@ -45,8 +47,8 @@ export default {
     return {
       valid: true,
       formData: {
-        name: 'ycombinator',
-        url: 'https://news.ycombinator.com'
+        name: '',
+        url: ''
       },
 
       nameRules: [
@@ -63,6 +65,7 @@ export default {
 
       allCategories: [
         'Technology',
+        'Design',
         'Business',
         'Finance',
         'Politics',

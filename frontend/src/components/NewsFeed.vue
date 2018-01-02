@@ -2,20 +2,19 @@
   <v-container fluid style="min-height: 0;" grid-list-lg >
     <v-layout row >
       <v-flex xs12 sm10 offset-sm1>
+        <v-toolbar >
+          <span class="last-update" v-html="lastUpdate"></span>
+          <v-btn round flat icon @click="refreshNews"> <v-icon>refresh</v-icon></v-btn>
+          <v-btn right round flat absolute to="/sources">Configure</v-btn>
+        </v-toolbar>
+
         <v-card>
-
-        <v-list three-lines>
-        <template v-for="item in items">
-          <news-item v-if="item.header" :key="item.header" :item="item"></news-item>
-
-        </template>
-        </v-list>
+          <v-list three-lines v-for="item in items">
+              <news-item v-bind:key="item.header" :item="item"/>
+          </v-list>
         </v-card>
 
-
       </v-flex>
-
-
     </v-layout>
 
   </v-container>
@@ -35,23 +34,17 @@ export default {
     }
   },
   computed:{
-    items(){
+    lastUpdate () {
+      const d = this.$store.state.lastUpdate
+      const day = d.getDay() == (new Date().getDay()) ? 'Today' : 'Yesterday'
+      const time = d.toLocaleTimeString()
+      return `${day} at ${time}`
+    },
+    items (){
       return this.$store.state.feeds
     }
   },
   methods: {
-    viewItem(e){
-      const link = e.target.getElementsByTagName('a')[0];
-      // link.href = this.item.url;
-      if (link) {
-        link.setAttribute('href', this.item.url)
-        link.setAttribute('target', '_blank')
-        link.click()
-      }
-      // location.href = this.item.url
-    },
-
-
     onClickCategory(choices){
       let params = '';
 
@@ -59,9 +52,11 @@ export default {
       choices.slice(1).forEach((v, index)=>{
         params += '&' + v;
       })
-
       // this.reloadData(params)
-      console.info('click category', params, choices)
+      // console.info('click category', params, choices)
+    },
+    refreshNews (){
+      this.$store.dispatch('fetchNews')
     }
 
   },
@@ -95,5 +90,9 @@ li {
 
 a {
   color: #35495e;
+}
+.last-update {
+  font-size: 0.8rem;
+  color: #878787;
 }
 </style>

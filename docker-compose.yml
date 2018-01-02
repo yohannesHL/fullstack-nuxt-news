@@ -22,4 +22,5 @@ services:
       MONGODB_URL: mongodb://db/mydb
     ports:
       - 3000:3000
-    entrypoint: backend/start.sh
+    entrypoint: /backend/start.sh
+    restart: always

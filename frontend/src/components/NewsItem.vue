@@ -1,24 +1,16 @@
 <template>
-  <div>
+<div>
+  <v-list-tile class="news-item" avatar v-bind:key="item.header" @click="viewItem">
+    <v-list-tile-content>
+    <v-list-tile-title class="no-overflow" v-html="item.header"></v-list-tile-title>
+    <v-list-tile-sub-title v-html="item.site"></v-list-tile-sub-title>
 
-            <!-- <v-subheader v-if="item.site" v-text="item.site"></v-subheader> -->
+    </v-list-tile-content>
 
-    <a class="list__tile list__tile--link" target="_blank" :key="item.header" :href="item.url">
+  </v-list-tile>
+  <hr class="divider"/>
+</div>
 
-      <li>
-        <!-- <v-tile-text v-html="item.header.slice(0,100) + '...'">
-
-        </v-tile-text > -->
-
-        <div class="list__tile__title" v-html="item.header.slice(0,100) + '...'"></div>
-        <span class="site" v-html="item.site"></span>
-
-        <!-- <div class="list__tile__title" v-html="item.site"></div> -->
-      </li>
-    </a>
-    <hr class="divider"/>
-
-  </div>
 </template>
 
 <script>
@@ -27,15 +19,12 @@ export default {
   props: ['item'],
   methods: {
     viewItem(e){
-      const link = e.target.getElementsByTagName('a')[0];
-      // link.href = this.item.url;
-      console.info(link,e)
-      if(link) {
+      const link = e.target.offsetParent;
+      if (link) {
         link.setAttribute('href', this.item.url)
         link.setAttribute('target', '_blank')
         link.click()
       }
-      // location.href = this.item.url
     }
   }
   // data () {
@@ -67,9 +56,22 @@ a {
   right: 25px;
 }
 .site {
-    position: absolute;
-    top: 12px;
-    right: 20px;
-    color: grey;
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  color: grey;
+}
+.no-overflow {
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  width: 90%;
+  display: block;
+  white-space: nowrap;
+}
+.news-item {
+  display: flex;
+  flex-direction: column;
+
 }
 </style>

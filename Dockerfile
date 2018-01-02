@@ -11,4 +11,4 @@ VOLUME [ "/backend" ]
 
 # WORKDIR /backend
 # RUN npm install
-ENTRYPOINT [ "./backend/start.sh" ]
+ENTRYPOINT [ "/backend/start.sh" ]

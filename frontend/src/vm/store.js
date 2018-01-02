@@ -7,24 +7,22 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     feeds: [],
-    sources: []
+    sources: [],
+    config: {},
+    lastUpdate: new Date()
   },
   mutations: {
-    addFeed: (state, payload) => {
-      // Assemble data
-      const feed = {
-        ...payload
-      }
-      // console.info('feed', feed)
-      state.feeds.push(feed);
+    setFeeds: (state, payload) => {
+      state.feeds = payload
     },
-    addFeedSource: (state, payload) => {
-      // Assemble data
-      const source = {
-        ...payload
-      }
-      // console.info('addFeedSource', source)
-      state.sources.push(source);
+    setFeedSources: (state, payload) => {
+      state.sources = payload
+    },
+    setSourcesConfig: (state, payload) => {
+      state.config = payload
+    },
+    lastupdate: (state, payload) => {
+      state.lastUpdate = new Date()
     }
   },
   actions: {
@@ -35,33 +33,30 @@ const store = new Vuex.Store({
       }
       axios.get(url)
           .then((resp) => {
-            // console.info('resp', resp)
             if (resp.status == 200) {
-              (resp.data || []).forEach((feed) => {
-                commit('addFeed', feed)
-              });
+
+              commit('setFeeds', resp.data || [])
+              commit('lastUpdate')
             }
           }, (err) => {})
     },
     fetchSources({ commit }) {
 
 
-      axios.get('/sources').then((resp) => {
+      axios.get('/api/sources').then((resp) => {
         // console.info('resp', resp)
         if (resp.status == 200) {
-          (resp.data || []).forEach((src) => {
-            commit('addFeedSource', src)
-          });
+          commit('setFeedSources', resp.data || [])
         }
       }, (err) => {
 
       })
     },
-    setConfig({commit}, payload) {
-      // localStorage.setItem('feeds-config', JSON.stringify(payload))
+    setSourcesConfig({commit}, payload) {
+      commit('setSourcesConfig', payload)
     },
     addNewsSource({commit}, payload){
-      axios.post('/api/sources',{
+      axios.post('/api/request', {
           ...payload
       }).then((resp)=> {
         // util.showToast
