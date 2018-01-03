@@ -1,14 +1,12 @@
 
-FROM node
-MAINTAINER Yohannes
-VOLUME [ "/frontend" ]
-VOLUME [ "/backend" ]
-# COPY backend /backend
-# ADD frontend /frontend
+FROM docker/compose:1.18.0
 
-# WORKDIR /frontend
-# RUN npm install
+MAINTAINER Yohannes HL
 
-# WORKDIR /backend
-# RUN npm install
-ENTRYPOINT [ "/backend/start.sh" ]
+ADD src /dist
+
+WORKDIR /dist
+
+RUN docker-compose build
+
+ENTRYPOINT [ "docker-compose", "up" ]
