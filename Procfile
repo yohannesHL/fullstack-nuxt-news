@@ -1,1 +1,1 @@
-web: node .
+web: MONGODB_URL=mongodb://ec2-user@ec2-54-174-41-163.compute-1.amazonaws.com/my-db node .
