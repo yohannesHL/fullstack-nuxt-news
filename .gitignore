@@ -6,4 +6,5 @@
 node_modules
 
 .history
+.vscode
 db

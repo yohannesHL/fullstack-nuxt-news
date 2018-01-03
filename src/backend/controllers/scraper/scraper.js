@@ -55,7 +55,7 @@ exports = module.exports = {
         .catch(err => null)
 
     })
-
+    if (!cb || typeof cb !== 'function ') return;
     cb(null, `scraped news headlines from : ${sources}`);
   }
 }
