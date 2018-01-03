@@ -1,0 +1,12 @@
+{
+  "name": "Node vuejs Newsfeed App",
+  "description": "A newsfeed app using nodejs and vue",
+  "repository": "https://github.com/heroku/node-js-getting-started",
+  "logo": "",
+  "keywords": [
+    "node",
+    "loopback",
+    "heroku"
+  ],
+  "image": "heroku/nodejs"
+}
