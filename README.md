@@ -1,11 +1,11 @@
 
-A Vue/NodeJs client/server for personalised aggregated news feed.
+A Vue/NodeJs aggregated news feed.
 
 
 
 ## Geting started
 
-You'll need docker and docker compose installed.
+You'll need [docker](https://www.docker.com) and [docker compose](https://docs.docker.com/compose/) installed.
 
 To get the site running on your local machine:
 
@@ -20,7 +20,10 @@ docker-compose up
 
 This will startup the local server http://localhost:3000
 
-Explore API endpoints are via : http://localhost:3000/explorer
+Endpoints:
+ * api/news
+ * api/sources
+ * api/requests
 
 
 ### Features:
@@ -36,10 +39,9 @@ Explore API endpoints are via : http://localhost:3000/explorer
 > Backend:
 
 * NodeJS
-* feathersJs
-* sequalize
-* sql lite
-* jwt authentication
+* loopback
+* cheerio
+* mongodb
 
 > Frontend:
 
